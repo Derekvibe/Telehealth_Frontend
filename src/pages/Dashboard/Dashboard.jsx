@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const apiKey = import.meta.env.VITE_STREAM_API_KEY;
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/stream/get-token';
+const API_URL = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/stream/get-token';
 
 function App() {
   // const [user, setUser] = useState(null);

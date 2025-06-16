@@ -2,10 +2,10 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 //for logOut
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1/users/logout';
+const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/v1/users/logout';
 
 //for get token
-const API_URL1 = import.meta.env.VITE_API_URL1 || 'http://localhost:8000/api/stream/get-token';
+const API_URL1 = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/stream/get-token';
 // 1. Create the context
 const StreamContext = createContext();
 
