@@ -31,7 +31,7 @@ function Hero() {
           />
         </div>
 
-        <Link  to="/join">
+        <Link  to="/signup">
           <button className="bg-blue-600 text-white px-6 py-3 rounded-full hover:bg-gray-700 transition md:hidden mt-8">
             Get Started
           </button>
