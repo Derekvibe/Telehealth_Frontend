@@ -80,7 +80,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className="w-full min-h-screen border border-red-700">
+    <div className='border border-red-700 w-full min-w-[100vw] min-h-[100vh]'>
       <RouterProvider router={router} />
     </div>
   );
