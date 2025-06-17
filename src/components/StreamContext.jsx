@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
-//for logOut
-const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1users/logout';
+
+const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1';
 
 //for get token
-const API_URL1 = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/stream/get-token';
+// const API_URL1 = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/v1/stream/get-token';
 // 1. Create the context
 const StreamContext = createContext();
 
@@ -17,7 +17,7 @@ export const StreamProvider = ({ children }) => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const res = await axios.get(`${API_URL1}/stream/get-token`, {
+        const res = await axios.get(`${API_URL}/stream/get-token`, {
           withCredentials: true,
         });
 
