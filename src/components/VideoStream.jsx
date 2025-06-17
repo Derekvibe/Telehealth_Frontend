@@ -6,7 +6,7 @@ import { StreamVideo, StreamCall } from "@stream-io/video-react-sdk";
 import { useStream } from "./StreamContext";
 import { MyUILayout } from "./MyUILayout";
 
-const apiKey = import.meta.env.VITE_STREAM_API_KEY;
+const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1';
 
 function VideoStream() {
 
