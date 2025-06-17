@@ -66,7 +66,7 @@ function VideoStream() {
     );
   
   return (
-    <div className="relative h-screen w-full">
+    <div className="relative h-screen w-full p-2 sm:p-4 bg-gray-50">
       <StreamVideo client={client}>
         <StreamCall call={call}>
           <MyUILayout />
@@ -75,7 +75,7 @@ function VideoStream() {
 
       <button
         onClick={handleLeaveCall}
-        className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow hover:bg-red-700 transition"
+        className="absolute top-2 right-2 sm:top-4 sm:right-4 bg-red-600 text-white text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg shadow hover:bg-red-700 transition"
       >
         Leave Call
       </button>
