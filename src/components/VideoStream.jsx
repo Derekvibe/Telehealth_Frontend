@@ -1,44 +1,85 @@
 import React, { useEffect, useState } from "react";
 import { StreamVideoClient } from "@stream-io/video-client";
 import { StreamVideo, StreamCall } from "@stream-io/video-react-sdk";
+import { useNavigate } from "react-router-dom";
 
 
 import { useStream } from "./StreamContext";
 import { MyUILayout } from "./MyUILayout";
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1';
+
+const apiKey = import.meta.env.VITE_STREAM_API_KEY;
 
 function VideoStream() {
 
   const [client, setClient] = useState(null);
     const [call, setCall] = useState(null);
-    const { user, token } = useStream();
+  const { user, token } = useStream();
+  const navigate = useNavigate();
   
-    useEffect(() => {
-      const setup = async () => {
-        if (!user || !token) return;
+  useEffect(() => {
+      
+    let clientInstance;
+    let callInstance;
+
+
+    const setup = async () => {
+      if (!apiKey || !user || !token) return;
   
-        const clientInstance = new StreamVideoClient({ apiKey, user, token });
-        const callInstance = clientInstance.call("default", user.id); // Use user.id as callId
+      clientInstance = new StreamVideoClient({ apiKey, user, token });
+        
+      callInstance = clientInstance.call("default", user.id); // Use user.id as callId
 
   
-        await callInstance.join({ create: true });
+      await callInstance.join({ create: true });
   
-        setClient(clientInstance);
-        setCall(callInstance);
-      };
+      setClient(clientInstance);
+      setCall(callInstance);
+    };
   
-      setup();
-    }, [user, token]);
+    setup();
+    
+    return () => {
+      if (callInstance) callInstance.leave();
+      if (clientInstance) clientInstance.disconnectUser();
+
+    };
+  }, [user, token]);
+
+  const handleLeaveCall = async () => {
+    if (call) await call.leave();
+    if (client) await client.disconnectUser();
+
+    setCall(null);
+    setClient(null);
+
+    navigate("/dashboard"); // or any other route
+  };
   
-    if (!client || !call) return <div>Loading video call...</div>;
+  if (!apiKey) return <div>Missing Stream API Key</div>;
   
+  if (!client || !call)
     return (
+  <div className="flex items-center justify-center h-screen text-xl font-semibold">
+    Connecting to the video call...
+  </div>
+    );
+  
+  return (
+    <div className="relative h-screen w-full">
       <StreamVideo client={client}>
         <StreamCall call={call}>
           <MyUILayout />
         </StreamCall>
       </StreamVideo>
+
+      <button
+        onClick={handleLeaveCall}
+        className="absolute top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow hover:bg-red-700 transition"
+      >
+        Leave Call
+      </button>
+    </div>
     );
   }
 

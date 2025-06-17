@@ -7,13 +7,14 @@ import { useCallback } from "react";
 const API_URL = import.meta.env.VITE_API_URL;
 
 const useLogout = () => {
-  const { setUser, setToken } = useStream();
+  const { client, setUser, setToken } = useStream();
   const navigate = useNavigate();
 
   const logout = useCallback(async () => {
     try {
       // Call backend logout endpoint.
       // Your logout endpoint resets the cookie to "loggedout" so that it expires shortly.
+      if (client) await client.disconnectUser();
       await axios.get(`${API_URL}/users/logout`, {
         withCredentials: true,
       });
@@ -32,7 +33,7 @@ const useLogout = () => {
     } catch (err) {
       console.error("Logout failed:", err);
     }
-  }, [setUser, setToken, navigate]);
+  }, [client, setUser, setToken, navigate]);
 
   return logout;
 };
