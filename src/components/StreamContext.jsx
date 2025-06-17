@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 import axios from "axios";
 
 //for logOut
-const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/v1/users/logout';
+const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1users/logout';
 
 //for get token
 const API_URL1 = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/stream/get-token';
@@ -24,7 +24,7 @@ export const StreamProvider = ({ children }) => {
         if (res.data?.user && res.data?.token) {
           setUser(res.data.user);
           setToken(res.data.token);
-          // console.log("Stream user/token:", res.data);
+          console.log("Stream user/token:", res.data);
         } else {
           console.error("Token or user missing in response:", res.data);
         }
