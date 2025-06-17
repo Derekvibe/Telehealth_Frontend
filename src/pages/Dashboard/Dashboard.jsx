@@ -88,26 +88,25 @@ function App() {
   
   
   return (
-    <div>
+    <div className="w-full min-h-screen p-2 sm:p-4 bg-gray-100">
       <Chat client={chatClient} theme="str-chat__theme-light">
         <Channel channel={channel}>
           <Window>
-            <div>
-            <button
-              onClick={handleVideoCallClick}
-              className="text-white p-2 m-4 text-lg"
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 sm:gap-4 p-2">
+          <button
+            onClick={handleVideoCallClick}
+            className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm sm:text-base"
           >
             Video Call
-              </button>
-              
-              <button
-                onClick={handleLogout}
-                className="p-2 m-2 bg-red-600 text-white border-none cursor-pointer"
-              >
-                Logout
-              </button>
+          </button>
 
-            </div>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded text-sm sm:text-base"
+          >
+            Logout
+          </button>
+        </div>
  
             <ChannelHeader />
             <MessageList />
