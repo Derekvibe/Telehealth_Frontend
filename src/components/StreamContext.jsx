@@ -43,6 +43,14 @@ export const StreamProvider = ({ children }) => {
         {
           withCredentials: true
         });
+      
+      // Clear localStorage
+      localStorage.removeItem('authToken');
+      localStorage.removeItem('user');
+      localStorage.removeItem('streamToken');
+      
+
+      // Clear context
       setUser(null);
       setToken(null);
     } catch (error) {
@@ -50,8 +58,9 @@ export const StreamProvider = ({ children }) => {
     }
   };
 
+  // Expose Logout with capital L
   return (
-    <StreamContext.Provider value={{ user, token, logout }}>
+    <StreamContext.Provider value={{ user, token, Logout:logout }}>
       {children}
     </StreamContext.Provider>
   );

@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 
 const apiKey = import.meta.env.VITE_STREAM_API_KEY;
 
-const API_URL = import.meta.env.VITE_API_URL1 || 'https://telehealth-backend-2m1f.onrender.com/api/stream/get-token';
+const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1';
 
 function App() {
   // const [user, setUser] = useState(null);
@@ -30,7 +30,7 @@ function App() {
   const navigate = useNavigate();
 
   // const ChatComponent = () => {
-    const { user, token, logout } = useStream();
+    const { user, token, Logout } = useStream();
   
     // if (!user) return <div>Page Not Available</div>;
     // console.log(user);
@@ -80,7 +80,7 @@ function App() {
   };
   
   const handleLogout = async () => {
-    await logout();
+    await Logout();
     navigate("/login");
   }
 
