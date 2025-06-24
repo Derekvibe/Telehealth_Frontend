@@ -15,7 +15,6 @@ import { useStream } from "../../components/StreamContext";
 import VideoStream from "../../components/VideoStream";
 import { useNavigate } from "react-router-dom";
 
-//Video
 
 
 const apiKey = import.meta.env.VITE_STREAM_API_KEY;
@@ -23,29 +22,34 @@ const apiKey = import.meta.env.VITE_STREAM_API_KEY;
 const API_URL = import.meta.env.VITE_API_URL || 'https://telehealth-backend-2m1f.onrender.com/api/v1';
 
 function App() {
-  // const [user, setUser] = useState(null);
-  // const [token, setToken] = useState(null);
   const [channel, setChannel] = useState(null);
   const [clientReady, setClientReady] = useState(false);
   const navigate = useNavigate();
 
   // const ChatComponent = () => {
     const { user, token, Logout } = useStream();
-  
-    // if (!user) return <div>Page Not Available</div>;
-    // console.log(user);
 
     // Always call the hook
     const chatClient = useCreateChatClient({
       apiKey,
       tokenOrProvider: token,
-      userData: { id: user?.id },
+      userData: user?.id ? { id: user.id } : undefined,
     });
+  
+  // Debug: See when user/token is ready
+  useEffect(() => {
+    console.log("Stream user:", user);
+    console.log("Stream token:", token);
+  }, [user, token]);
 
     // Connect user to Stream
     useEffect(() => {
       const connectUser = async () => {
-        if (!chatClient || !user || !token || !user.id) return;
+        if (!chatClient || !user || !token || !user?.id) {
+          console.warn("Missing chat setup data:", { chatClient, token, user });
+          return;
+        }
+      
 
         try {
           await chatClient.connectUser(
@@ -82,6 +86,10 @@ function App() {
   const handleLogout = async () => {
     await Logout();
     navigate("/login");
+  }
+
+  if (!user || !token) {
+    return <div className="text-red-600">User or token not ready.</div>;
   }
 
   if (!clientReady || !channel) return <div>Loading chat...</div>;
