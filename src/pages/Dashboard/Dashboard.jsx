@@ -14,7 +14,6 @@ import "stream-chat-react/dist/css/v2/index.css";
 import { useStream } from "../../components/StreamContext";
 import VideoStream from "../../components/VideoStream";
 import { useNavigate } from "react-router-dom";
-import { StreamClient } from "getstream";
 
 
 
