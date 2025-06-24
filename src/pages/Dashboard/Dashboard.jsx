@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import {
   Chat,
@@ -25,6 +25,7 @@ function App() {
   const [channel, setChannel] = useState(null);
   const [clientReady, setClientReady] = useState(false);
   const navigate = useNavigate();
+  const connectedRef = useRef(false)
 
   // const ChatComponent = () => {
     const { user, token, Logout } = useStream();
@@ -45,6 +46,8 @@ function App() {
     // Connect user to Stream
     useEffect(() => {
       const connectUser = async () => {
+        if (connectedRef.current) return; // prevent multiple calls
+
         if (!chatClient || !user || !token || !user?.id) {
           console.warn("Missing chat setup data:", { chatClient, token, user });
           return;
