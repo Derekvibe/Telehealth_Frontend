@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import {
   Chat,
@@ -14,6 +14,7 @@ import "stream-chat-react/dist/css/v2/index.css";
 import { useStream } from "../../components/StreamContext";
 import VideoStream from "../../components/VideoStream";
 import { useNavigate } from "react-router-dom";
+import { StreamClient } from "getstream";
 
 
 
@@ -25,6 +26,7 @@ function App() {
   const [channel, setChannel] = useState(null);
   const [clientReady, setClientReady] = useState(false);
   const navigate = useNavigate();
+  const connectedRef = useRef(false)
 
   // const ChatComponent = () => {
     const { user, token, Logout } = useStream();
@@ -45,6 +47,8 @@ function App() {
     // Connect user to Stream
     useEffect(() => {
       const connectUser = async () => {
+        if (connectedRef.current) return; // prevent multiple calls
+
         if (!chatClient || !user || !token || !user?.id) {
           console.warn("Missing chat setup data:", { chatClient, token, user });
           return;
