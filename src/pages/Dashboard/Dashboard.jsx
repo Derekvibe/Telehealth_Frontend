@@ -48,7 +48,7 @@ function App() {
       const connectUser = async () => {
         if (connectedRef.current) return; // prevent multiple calls
 
-        if (!chatClient || !user || !token || !user?.id) {
+        if (!chatClient || !user || !token || !user.id) {
           console.warn("Missing chat setup data:", { chatClient, token, user });
           return;
         }
